@@ -1,343 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-PRO">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kamberhub - Çok Yakında...</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
-
-        :root {
-            --glow-color: #00aaff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #ffffff;
-            background-color: #02040a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        /* Hareketli Parçacık Arka Planı */
-        @keyframes move-stars {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-2000px); }
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-
-        .stars:after {
-            content: "";
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            background: #fff;
-            box-shadow: 
-                /* 2000px'lik bir alana rastgele 100 yıldız */
-                15vw 20vh #fff, 80vw 10vh #fff, 30vw 30vh #fff, 50vw 90vh #fff,
-                75vw 60vh #fff, 10vw 85vh #fff, 90vw 40vh #fff, 5vw 5vh #fff,
-                45vw 50vh #fff, 60vw 70vh #fff, 85vw 25vh #fff, 55vw 15vh #fff,
-                20vw 75vh #fff, 70vw 80vh #fff, 35vw 55vh #fff, 95vw 65vh #fff,
-                25vw 45vh #fff, 65vw 35vh #fff, 5vw 95vh #fff, 80vw 5vh #fff,
-                /* ... ve devamı ... */
-                18vw 22vh #fff, 82vw 12vh #fff, 32vw 32vh #fff, 52vw 92vh #fff,
-                77vw 62vh #fff, 12vw 87vh #fff, 92vw 42vh #fff, 7vw 7vh #fff,
-                47vw 52vh #fff, 62vw 72vh #fff, 87vw 27vh #fff, 57vw 17vh #fff,
-                22vw 77vh #fff, 72vw 82vh #fff, 37vw 57vh #fff, 97vw 67vh #fff,
-                27vw 47vh #fff, 67vw 37vh #fff, 7vw 97vh #fff, 82vw 7vh #fff,
-                /* Tekrar eden desenler (daha fazla yıldız için) */
-                15vw 1020vh #fff, 80vw 1010vh #fff, 30vw 1030vh #fff, 50vw 1090vh #fff,
-                75vw 1060vh #fff, 10vw 1085vh #fff, 90vw 1040vh #fff, 5vw 1005vh #fff,
-                45vw 1050vh #fff, 60vw 1070vh #fff, 85vw 1025vh #fff, 55vw 1015vh #fff,
-                20vw 1075vh #fff, 70vw 1080vh #fff, 35vw 1055vh #fff, 95vw 1065vh #fff,
-                25vw 1045vh #fff, 65vw 1035vh #fff, 5vw 1095vh #fff, 80vw 1005vh #fff,
-                18vw 1022vh #fff, 82vw 1012vh #fff, 32vw 1032vh #fff, 52vw 1092vh #fff,
-                77vw 1062vh #fff, 12vw 1087vh #fff, 92vw 1042vh #fff, 7vw 1007vh #fff,
-                47vw 1052vh #fff, 62vw 1072vh #fff, 87vw 1027vh #fff, 57vw 1017vh #fff,
-                22vw 1077vh #fff, 72vw 1082vh #fff, 37vw 1057vh #fff, 97vw 1067vh #fff,
-                27vw 1047vh #fff, 67vw 1037vh #fff, 7vw 1097vh #fff, 82vw 1007vh #fff;
-            animation: move-stars 100s linear infinite;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 650px;
-            padding: 2.5rem 2rem;
-            background: rgba(10, 10, 20, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 25px rgba(var(--glow-color), 0.1);
-            animation: fadeIn 1.5s ease-out;
-            z-index: 1;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
-            font-size: 1.75rem;
-            font-weight: 300;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 3.5rem);
-            font-weight: 700;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            line-height: 1.2;
-        }
-
-        p {
-            font-size: clamp(1rem, 2.5vw, 1.1rem);
-            font-weight: 300;
-            margin-bottom: 35px;
-            line-height: 1.7;
-            color: #ccc;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #countdown {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap; /* Mobil uyumluluk için */
-        }
-
-        .time-box {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            min-width: 80px;
-            flex-basis: 90px; /* Esnek büyüme için */
-            flex-grow: 1;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .time-box:hover {
-            transform: translateY(-5px);
-            border-color: var(--glow-color);
-            box-shadow: 0 0 15px rgba(var(--glow-color), 0.3);
-        }
-
-        .time-box span {
-            display: block;
-        }
-
-        .time-box span:first-child {
-            font-size: 2.2rem;
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--glow-color);
-        }
-
-        .time-box .label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 300;
-            letter-spacing: 1px;
-            color: #ccc;
-            margin-top: 5px;
-        }
-
-        .telegram-btn {
-            display: inline-block;
-            background-color: var(--glow-color);
-            color: #ffffff;
-            padding: 15px 35px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 170, 255, 0.3);
-            border: none;
-            cursor: pointer;
-        }
-
-        .telegram-btn:hover {
-            background-color: #00beff;
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 25px rgba(0, 170, 255, 0.5);
-        }
-
-        #countdown.finished {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #00ffaa;
-            text-shadow: 0 0 10px #00ffaa;
-        }
-
-        /* Daha küçük ekranlar için ince ayar */
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 2rem 1.5rem;
-            }
-            #countdown {
-                gap: 10px;
-            }
-            .time-box {
-                flex-basis: 70px; /* Daha küçük cihazlarda daha kompakt */
-                padding: 10px;
-            }
-            .time-box span:first-child {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KamberHub — Yakında Buradayız</title>
+  <meta name="description" content="KamberHub yakında yayında. Güncellemeler için Telegram kanalımıza katılın.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0b0e18; --card:#14182a; --txt:#e9ecf1; --muted:#a6afc3; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; 
+         background: radial-gradient(1000px 600px at 10% 10%, #1a2140 0, #0b0e18 60%), var(--bg); 
+         color:var(--txt); display:flex; align-items:center; justify-content:center; padding:24px;}
+    .card{width:min(720px,100%); background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+          backdrop-filter:saturate(140%) blur(6px); border:1px solid rgba(255,255,255,.08); 
+          border-radius:24px; padding:28px; box-shadow:0 10px 40px rgba(0,0,0,.35);}
+    h1{font-size:clamp(28px,4vw,40px); margin:0 0 8px; letter-spacing:.3px}
+    p{margin:0 0 18px; color:var(--muted); line-height:1.6}
+    .row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{appearance:none; border:0; border-radius:14px; padding:12px 16px; font-weight:600; 
+         cursor:pointer; text-decoration:none; color:#0b0e18; background:#8ff0ff}
+    .btn:hover{filter:brightness(1.05)}
+    .btn.ghost{background:transparent; color:var(--txt); border:1px solid rgba(255,255,255,.16)}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0}
+    .badge{padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); 
+           color:var(--muted); font-size:12px}
+    footer{margin-top:18px; font-size:12px; color:#8a94ad}
+  </style>
 </head>
 <body>
+  <main class="card">
+    <h1>Yakında Buradayız 🚀</h1>
+    <p>KamberHub’ı son dokunuşlara hazırlıyoruz. Güncellemeleri kaçırmamak için kanallarımıza katıl.</p>
 
-    <div class="stars"></div>
-
-    <div class="container">
-        <div class="logo">Kamberhub</div>
-        
-        <h1>Büyük Lansman Başlıyor</h1>
-        <p>Alışılmışın dışında fırsatlar ve özel içerikler için geri sayım başladı. Haberdar olmak için Telegram'a katılın.</p>
-        
-        <div id="countdown">
-            <div class="time-box">
-                <span id="days">00</span>
-                <span class="label">Gün</span>
-            </div>
-            <div class="time-box">
-                <span id="hours">00</span>
-                <span class="label">Saat</span>
-            </div>
-            <div class="time-box">
-                <span id="minutes">00</span>
-                <span class="label">Dakika</span>
-            </div>
-            <div class="time-box">
-                <span id="seconds">00</span>
-                <span class="label">Saniye</span>
-            </div>
-        </div>
-        
-        <a href="https://t.me/kamberhub" target="_blank" class="telegram-btn">
-            Telegram'a Katıl
-        </a>
+    <div class="badges">
+      <span class="badge">Casino & Spor • Limitsiz Ve Ücretisiz Yüzlerce Bonus</span>
+      <span class="badge">Blog &amp; Rehberler</span>
     </div>
 
-    <script>
-        (function() {
-            const countdownElement = document.getElementById('countdown');
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
+    <div class="row">
+      <a class="btn" href="https://t.me/kamberhub" rel="noopener">Telegram’a Katıl</a>
+    </div>
 
-            /* Bu anahtar, tarayıcınızın yerel depolamasında (localStorage) 
-               hedef tarihi saklar. */
-            const storageKey = 'kamberhubTargetDate';
-            
-            /* Sayfa yüklendiğinde depolanmış tarihi almayı deneriz. */
-            let targetDate = localStorage.getItem(storageKey);
-
-            /* Eğer depolanmış bir tarih yoksa (ilk ziyaret veya gizli sekme),
-              şu andan itibaren 50 gün sonrasını hesaplar ve bunu depolarız.
-            */
-            if (!targetDate) {
-                const fiftyDaysInMs = 50 * 24 * 60 * 60 * 1000;
-                const now = new Date().getTime();
-                targetDate = now + fiftyDaysInMs;
-                
-                /* Hedef tarihi tarayıcıya kaydederiz. */
-                try {
-                    localStorage.setItem(storageKey, targetDate);
-                } catch (e) {
-                    console.error("LocalStorage kullanılamıyor. Sayaç her yenilemede sıfırlanabilir.", e);
-                }
-            }
-
-            /* Depodan gelen tarih bir string olabilir, sayıya çeviririz. */
-            targetDate = parseInt(targetDate);
-
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                /* Süre dolduysa */
-                if (distance < 0) {
-                    countdownElement.innerHTML = "Ve... Açıldık!";
-                    countdownElement.classList.add('finished');
-                    clearInterval(interval);
-                    
-                    /* Süre dolduğunda depolanan tarihi temizleriz. */
-                    try {
-                        localStorage.removeItem(storageKey);
-                    } catch (e) {
-                        console.error("LocalStorage temizlenemedi.", e);
-                    }
-                    return;
-                }
-
-                /* Kalan zamanı hesaplama */
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                /* Ekrandaki elemanları güncelleme */
-                daysEl.innerText = formatTime(days);
-                hoursEl.innerText = formatTime(hours);
-                minutesEl.innerText = formatTime(minutes);
-                secondsEl.innerText = formatTime(seconds);
-            }
-
-            /* Sayıların başına '0' ekler (örn: 9 -> 09) */
-            function formatTime(time) {
-                return time < 10 ? `0${time}` : time;
-            }
-
-            /* Sayacı her saniye günceller */
-            const interval = setInterval(updateCountdown, 1000);
-            
-            /* Sayfa ilk yüklendiğinde de sayacı hemen çalıştırır */
-            updateCountdown();
-        })();
-    </script>
-
+    <footer>© <span id="y"></span> KamberHub</footer>
+  </main>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
 </body>
 </html>
