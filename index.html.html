@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KamberHub — Yakında Buradayız</title>
+  <meta name="description" content="KamberHub yakında yayında. Güncellemeler için Telegram kanalımıza katılın.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0b0e18; --card:#14182a; --txt:#e9ecf1; --muted:#a6afc3; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; 
+         background: radial-gradient(1000px 600px at 10% 10%, #1a2140 0, #0b0e18 60%), var(--bg); 
+         color:var(--txt); display:flex; align-items:center; justify-content:center; padding:24px;}
+    .card{width:min(720px,100%); background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+          backdrop-filter:saturate(140%) blur(6px); border:1px solid rgba(255,255,255,.08); 
+          border-radius:24px; padding:28px; box-shadow:0 10px 40px rgba(0,0,0,.35);}
+    h1{font-size:clamp(28px,4vw,40px); margin:0 0 8px; letter-spacing:.3px}
+    p{margin:0 0 18px; color:var(--muted); line-height:1.6}
+    .row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{appearance:none; border:0; border-radius:14px; padding:12px 16px; font-weight:600; 
+         cursor:pointer; text-decoration:none; color:#0b0e18; background:#8ff0ff}
+    .btn:hover{filter:brightness(1.05)}
+    .btn.ghost{background:transparent; color:var(--txt); border:1px solid rgba(255,255,255,.16)}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0}
+    .badge{padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); 
+           color:var(--muted); font-size:12px}
+    footer{margin-top:18px; font-size:12px; color:#8a94ad}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Yakında Buradayız 🚀</h1>
+    <p>KamberHub’ı son dokunuşlara hazırlıyoruz. Güncellemeleri kaçırmamak için kanallarımıza katıl.</p>
+
+    <div class="badges">
+      <span class="badge">Casino & Spor • Limitsiz Ve Ücretisiz Yüzlerce Bonus</span>
+      <span class="badge">Blog &amp; Rehberler</span>
+    </div>
+
+    <div class="row">
+      <a class="btn" href="https://t.me/kamberhub" rel="noopener">Telegram’a Katıl</a>
+    </div>
+
+    <footer>© <span id="y"></span> KamberHub</footer>
+  </main>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>
