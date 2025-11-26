@@ -1,51 +1,567 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KamberHub — Yakında Buradayız</title>
-  <meta name="description" content="KamberHub yakında yayında. Güncellemeler için Telegram kanalımıza katılın.">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root { --bg:#0b0e18; --card:#14182a; --txt:#e9ecf1; --muted:#a6afc3; }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0; font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; 
-         background: radial-gradient(1000px 600px at 10% 10%, #1a2140 0, #0b0e18 60%), var(--bg); 
-         color:var(--txt); display:flex; align-items:center; justify-content:center; padding:24px;}
-    .card{width:min(720px,100%); background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
-          backdrop-filter:saturate(140%) blur(6px); border:1px solid rgba(255,255,255,.08); 
-          border-radius:24px; padding:28px; box-shadow:0 10px 40px rgba(0,0,0,.35);}
-    h1{font-size:clamp(28px,4vw,40px); margin:0 0 8px; letter-spacing:.3px}
-    p{margin:0 0 18px; color:var(--muted); line-height:1.6}
-    .row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
-    .btn{appearance:none; border:0; border-radius:14px; padding:12px 16px; font-weight:600; 
-         cursor:pointer; text-decoration:none; color:#0b0e18; background:#8ff0ff}
-    .btn:hover{filter:brightness(1.05)}
-    .btn.ghost{background:transparent; color:var(--txt); border:1px solid rgba(255,255,255,.16)}
-    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0}
-    .badge{padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); 
-           color:var(--muted); font-size:12px}
-    footer{margin-top:18px; font-size:12px; color:#8a94ad}
-  </style>
+    <meta charset="UTF-8">
+    <title>KamberHub – Yakında Sizlerle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KamberHub; casino & slot incelemeleri, bonus rehberleri ve turnuvalar sunan bağımsız platform yakında sizlerle.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --kh-orange: #ff7a1a;
+            --kh-orange-dark: #e26307;
+            --kh-dark: #111111;
+            --kh-muted: #666a73;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--kh-orange);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            75% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--kh-orange), #ffc36a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255, 122, 26, 0.4);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 122, 26, 0.1);
+            border: 1px solid rgba(255, 122, 26, 0.3);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--kh-orange);
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--kh-orange);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #ffcf9a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .subtitle strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .countdown-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--kh-orange);
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(255, 122, 26, 0.5);
+        }
+
+        .countdown-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Notify Form */
+        .notify-form {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .notify-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .notify-input::placeholder {
+            color: #666;
+        }
+
+        .notify-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--kh-orange);
+            box-shadow: 0 0 0 3px rgba(255, 122, 26, 0.1);
+        }
+
+        .notify-btn {
+            padding: 1rem 2rem;
+            background: var(--kh-orange);
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .notify-btn:hover {
+            background: var(--kh-orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 122, 26, 0.3);
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 1.4s both;
+        }
+
+        .feature {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 122, 26, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            animation: fadeInUp 1s ease-out 1.6s both;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--kh-orange);
+            border-color: var(--kh-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 122, 26, 0.3);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            padding: 1rem 1.5rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            color: #22c55e;
+            margin-top: 1rem;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .countdown {
+                gap: 1rem;
+            }
+
+            .countdown-item {
+                min-width: 70px;
+            }
+
+            .countdown-value {
+                font-size: 2rem;
+            }
+
+            .countdown-label {
+                font-size: 0.75rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .notify-form {
+                flex-direction: column;
+            }
+
+            .logo-text {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .countdown {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+            }
+
+            .countdown-value {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <main class="card">
-    <h1>Yakında Buradayız 🚀</h1>
-    <p>KamberHub’ı son dokunuşlara hazırlıyoruz. Güncellemeleri kaçırmamak için kanallarımıza katıl.</p>
-
-    <div class="badges">
-      <span class="badge">Casino & Spor • Limitsiz Ve Ücretisiz Yüzlerce Bonus</span>
-      <span class="badge">Blog &amp; Rehberler</span>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
-    <div class="row">
-      <a class="btn" href="https://t.me/kamberhub" rel="noopener">Telegram’a Katıl</a>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-mark">K</div>
+            <div class="logo-text">KamberHub</div>
+        </div>
+
+        <!-- Status Badge -->
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>Yakında Açılıyoruz</span>
+        </div>
+
+        <!-- Main Heading -->
+        <h1>Güvenilir Casino ve<br>Slot Rehberiniz Geliyor</h1>
+
+        <!-- Subtitle -->
+        <p class="subtitle">
+            KamberHub; casino & slot oyuncuları için hazırlanmış <strong>bağımsız bir affiliate platformudur</strong>.<br>
+            Tarafsız incelemeler, bonus rehberleri ve özel turnuvalarla yakında sizlerle.
+        </p>
+
+        <!-- Countdown Timer -->
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="countdown-value" id="days">00</span>
+                <span class="countdown-label">Gün</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="hours">00</span>
+                <span class="countdown-label">Saat</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="minutes">00</span>
+                <span class="countdown-label">Dakika</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="seconds">00</span>
+                <span class="countdown-label">Saniye</span>
+            </div>
+        </div>
+
+        <!-- Notify Form -->
+        <form class="notify-form" id="notifyForm">
+            <input 
+                type="email" 
+                class="notify-input" 
+                placeholder="E-posta adresiniz" 
+                required
+                id="emailInput"
+            >
+            <button type="submit" class="notify-btn">Haberdar Et</button>
+        </form>
+        <div class="success-message" id="successMessage">
+            ✓ Teşekkürler! Açılış tarihi yaklaştığında sizi bilgilendireceğiz.
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🎰</div>
+                <div class="feature-title">Tarafsız İncelemeler</div>
+                <div class="feature-desc">Casino ve slot siteleri hakkında oyuncu odaklı, dürüst değerlendirmeler</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎁</div>
+                <div class="feature-title">Bonus Rehberleri</div>
+                <div class="feature-desc">Güncel bonuslar, çevrim şartları ve net kurallar tek sayfada</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🏆</div>
+                <div class="feature-title">Özel Turnuvalar</div>
+                <div class="feature-desc">KamberHub'a özel organize edilen turnuvalar ve ödüller</div>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://t.me/kamberhub" class="social-link" title="Telegram" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+            </a>
+        </div>
     </div>
 
-    <footer>© <span id="y"></span> KamberHub</footer>
-  </main>
-  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+    <script>
+        let launchDate;
+        
+        if (!localStorage.getItem('khLaunchDate')) {
+            launchDate = new Date();
+            launchDate.setDate(launchDate.getDate() + 35);
+            localStorage.setItem('khLaunchDate', launchDate.getTime());
+        } else {
+            launchDate = new Date(parseInt(localStorage.getItem('khLaunchDate')));
+        }
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            if (distance < 0) {
+                document.querySelector('.countdown').innerHTML = '<div class="countdown-item"><span class="countdown-value">🎉</span><span class="countdown-label">AÇILDIK!</span></div>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        document.getElementById('notifyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const successMessage = document.getElementById('successMessage');
+            
+            console.log('E-posta kaydedildi:', email);
+            
+            successMessage.classList.add('show');
+            document.getElementById('emailInput').value = '';
+            
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        });
+    </script>
 </body>
 </html>
