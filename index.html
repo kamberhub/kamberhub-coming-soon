@@ -1,552 +1,615 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>KamberHub – Yakında Sizlerle</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="KamberHub; casino & slot incelemeleri, bonus rehberleri ve turnuvalar sunan bağımsız platform yakında sizlerle.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23000000'/%3E%3Ctext x='50' y='45' font-family='Arial,sans-serif' font-size='32' font-weight='700' text-anchor='middle' fill='%23ffffff'%3EK%3C/text%3E%3Ctext x='50' y='70' font-family='Arial,sans-serif' font-size='32' font-weight='700' text-anchor='middle' fill='%23ff7a1a'%3EH%3C/text%3E%3C/svg%3E">
-    <link rel="icon" type="image/png" href="favicon.png">
-    
-    <style>
-        :root {
-            --kh-orange: #ff7a1a;
-            --kh-orange-dark: #e26307;
-            --kh-dark: #111111;
-            --kh-muted: #666a73;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KamberHub — Yakında Açılıyor</title>
+  <meta name="description" content="KamberHub yakında sizlerle! En güvenilir casino ve bahis rehberi geliyor.">
+  <meta property="og:title" content="KamberHub — Yakında Açılıyor">
+  <meta property="og:description" content="Türkiye'nin en kapsamlı iGaming rehberi çok yakında!">
+  <meta property="og:type" content="website">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Animated background particles */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
+    :root {
+      --gold:    #f5c842;
+      --gold-2:  #e6a817;
+      --blue:    #1677ff;
+      --blue-2:  #0e4fd6;
+      --bg:      #05080f;
+      --surface: rgba(255,255,255,0.045);
+      --border:  rgba(255,255,255,0.09);
+      --text:    #edf4ff;
+      --muted:   #7f8ba3;
+    }
 
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--kh-orange);
-            border-radius: 50%;
-            opacity: 0;
-            animation: float 15s infinite ease-in-out;
-        }
+    html, body {
+      height: 100%;
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
-        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
-        .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
-        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
-        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
-        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
-        .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; }
-        .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; }
+    /* ── Canvas particules ── */
+    #canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            25% {
-                opacity: 0.3;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            75% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0;
-            }
-        }
+    /* ── Background gradient ── */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(22,119,255,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 90%, rgba(245,200,66,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 80% at 50% 50%, rgba(5,8,15,0.95) 0%, transparent 100%);
+    }
 
-        .container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 2rem;
-            max-width: 800px;
-            animation: fadeInUp 1s ease-out;
-        }
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem 3rem;
+      gap: 0;
+    }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* ── Logo mark ── */
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 2.5rem;
+      animation: fadeDown 0.7s ease both;
+    }
 
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
+    .logo-mark {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 100%);
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 24px rgba(245,200,66,0.35);
+    }
 
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
+    .logo-text {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #fff 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1.2rem;
-            background: rgba(255, 122, 26, 0.1);
-            border: 1px solid rgba(255, 122, 26, 0.3);
-            border-radius: 999px;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--kh-orange);
-            margin-bottom: 2.5rem;
-            animation: fadeInUp 1s ease-out 0.4s both;
-        }
+    /* ── Card ── */
+    .card {
+      width: 100%;
+      max-width: 620px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem 2.5rem 2.5rem;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 32px 80px rgba(0,0,0,0.55),
+        0 0 60px rgba(22,119,255,0.06);
+      animation: fadeUp 0.75s ease both 0.15s;
+      text-align: center;
+    }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--kh-orange);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(245,200,66,0.12);
+      border: 1px solid rgba(245,200,66,0.3);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
+    .badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
 
-        h1 {
-            font-size: 3.5rem;
-            line-height: 1.15;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #ffcf9a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 1s ease-out 0.6s both;
-        }
+    /* ── Heading ── */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 1rem;
+      background: linear-gradient(160deg, #ffffff 30%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: #b0b0b0;
-            margin-bottom: 3rem;
-            line-height: 1.7;
-            animation: fadeInUp 1s ease-out 0.8s both;
-        }
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 440px;
+      margin: 0 auto 2.25rem;
+    }
 
-        .subtitle strong {
-            color: #ffffff;
-            font-weight: 600;
-        }
+    .subtitle strong { color: var(--text); font-weight: 600; }
 
-        /* Countdown Timer */
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            animation: fadeInUp 1s ease-out 1s both;
-        }
+    /* ── Divider ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 2rem 0;
+    }
 
-        .countdown-item {
-            text-align: center;
-            min-width: 100px;
-        }
+    /* ── Countdown ── */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
 
-        .countdown-value {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--kh-orange);
-            display: block;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px rgba(255, 122, 26, 0.5);
-        }
+    .count-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      min-width: 72px;
+    }
 
-        .countdown-label {
-            font-size: 0.85rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
+    .count-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(160deg, #fff 40%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-variant-numeric: tabular-nums;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
 
-        /* Notify Form */
-        .notify-form {
-            display: flex;
-            gap: 0.75rem;
-            max-width: 500px;
-            margin: 0 auto 2.5rem;
-            animation: fadeInUp 1s ease-out 1.2s both;
-        }
+    .count-num.flip { transform: scale(1.25); }
 
-        .notify-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+    .count-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
 
-        .notify-input::placeholder {
-            color: #666;
-        }
+    .count-sep {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--border);
+      align-self: flex-start;
+      padding-top: 0.15rem;
+      user-select: none;
+    }
 
-        .notify-input:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--kh-orange);
-            box-shadow: 0 0 0 3px rgba(255, 122, 26, 0.1);
-        }
+    /* ── Progress bar ── */
+    .progress-wrap {
+      margin-bottom: 2rem;
+    }
 
-        .notify-btn {
-            padding: 1rem 2rem;
-            background: var(--kh-orange);
-            border: none;
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
 
-        .notify-btn:hover {
-            background: var(--kh-orange-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 122, 26, 0.3);
-        }
+    .progress-labels span:last-child { color: var(--gold); font-weight: 600; }
 
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-            animation: fadeInUp 1s ease-out 1.4s both;
-        }
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
 
-        .feature {
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-        }
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--gold) 100%);
+      box-shadow: 0 0 12px rgba(245,200,66,0.4);
+      transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+    }
 
-        .feature:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 122, 26, 0.3);
-            transform: translateY(-5px);
-        }
+    /* ── Email form ── */
+    .form-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
 
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
+    .form-row input[type="email"] {
+      flex: 1 1 200px;
+      padding: 0.75rem 1.1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
 
-        .feature-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-        }
+    .form-row input[type="email"]::placeholder { color: var(--muted); }
+    .form-row input[type="email"]:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(22,119,255,0.18);
+    }
 
-        .feature-desc {
-            font-size: 0.9rem;
-            color: #888;
-            line-height: 1.6;
-        }
+    .btn-notify {
+      flex: 0 0 auto;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 100%);
+      border: none;
+      border-radius: 12px;
+      color: #0a0600;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+      box-shadow: 0 4px 18px rgba(245,200,66,0.3);
+      white-space: nowrap;
+    }
 
-        /* Social Links */
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            animation: fadeInUp 1s ease-out 1.6s both;
-        }
+    .btn-notify:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(245,200,66,0.45);
+      filter: brightness(1.08);
+    }
 
-        .social-link {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-        }
+    .btn-notify:active { transform: translateY(0); }
 
-        .social-link:hover {
-            background: var(--kh-orange);
-            border-color: var(--kh-orange);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 122, 26, 0.3);
-        }
+    .form-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.65rem;
+    }
 
-        /* Success Message */
-        .success-message {
-            display: none;
-            padding: 1rem 1.5rem;
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            border-radius: 12px;
-            color: #22c55e;
-            margin-top: 1rem;
-            animation: fadeInUp 0.5s ease-out;
-        }
+    /* ── Success message ── */
+    .success-msg {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 12px;
+      padding: 0.85rem 1.2rem;
+      color: #4ade80;
+      font-weight: 600;
+      font-size: 0.95rem;
+      animation: fadeUp 0.4s ease both;
+    }
 
-        .success-message.show {
-            display: block;
-        }
+    .success-msg.show { display: flex; }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
+    /* ── Features strip ── */
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+      animation: fadeUp 0.9s ease both 0.35s;
+    }
 
-            .subtitle {
-                font-size: 1rem;
-            }
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
 
-            .countdown {
-                gap: 1rem;
-            }
+    .feature .icon {
+      font-size: 1rem;
+      filter: grayscale(0.3);
+    }
 
-            .countdown-item {
-                min-width: 70px;
-            }
+    /* ── Footer ── */
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.78rem;
+      color: rgba(127,139,163,0.55);
+      text-align: center;
+      animation: fadeUp 1s ease both 0.5s;
+    }
 
-            .countdown-value {
-                font-size: 2rem;
-            }
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-            .countdown-label {
-                font-size: 0.75rem;
-            }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-            .features {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.45; transform: scale(0.7); }
+    }
 
-            .notify-form {
-                flex-direction: column;
-            }
-
-            .logo-text {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .countdown {
-                gap: 0.5rem;
-                flex-wrap: wrap;
-            }
-
-            .countdown-item {
-                min-width: 60px;
-            }
-
-            .countdown-value {
-                font-size: 1.75rem;
-            }
-        }
-    </style>
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.4rem 2rem; }
+      .count-num { font-size: 1.8rem; }
+      .count-block { min-width: 54px; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Animated Background Particles -->
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
+
+<canvas id="canvas"></canvas>
+<div class="bg-glow"></div>
+
+<div class="page">
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <div class="logo-mark">♠</div>
+    <span class="logo-text">KamberHub</span>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+
+    <div class="badge">
+      <span class="dot"></span>
+      Çok Yakında Açılıyor
     </div>
 
-    <div class="container">
-        <!-- Logo -->
-        <div class="logo">
-            <div class="logo-text">KamberHub</div>
-        </div>
+    <h1>Hazır mısın?</h1>
 
-        <!-- Status Badge -->
-        <div class="status-badge">
-            <span class="status-dot"></span>
-            <span>Yakında Açılıyoruz</span>
-        </div>
+    <p class="subtitle">
+      Türkiye'nin en kapsamlı <strong>casino &amp; bahis rehberi</strong> geliyor.<br>
+      Güvenilir siteler, dürüst yorumlar, gerçek bonus bilgileri.
+    </p>
 
-        <!-- Main Heading -->
-        <h1>Güvenilir Casino ve<br>Slot Rehberiniz Geliyor</h1>
-
-        <!-- Subtitle -->
-        <p class="subtitle">
-            KamberHub; casino & slot oyuncuları için hazırlanmış <strong>bağımsız bir affiliate platformudur</strong>.<br>
-            Tarafsız incelemeler, bonus rehberleri ve özel turnuvalarla yakında sizlerle.
-        </p>
-
-        <!-- Countdown Timer -->
-        <div class="countdown">
-            <div class="countdown-item">
-                <span class="countdown-value" id="days">00</span>
-                <span class="countdown-label">Gün</span>
-            </div>
-            <div class="countdown-item">
-                <span class="countdown-value" id="hours">00</span>
-                <span class="countdown-label">Saat</span>
-            </div>
-            <div class="countdown-item">
-                <span class="countdown-value" id="minutes">00</span>
-                <span class="countdown-label">Dakika</span>
-            </div>
-            <div class="countdown-item">
-                <span class="countdown-value" id="seconds">00</span>
-                <span class="countdown-label">Saniye</span>
-            </div>
-        </div>
-
-        <!-- Notify Form -->
-        <form class="notify-form" id="notifyForm">
-            <input 
-                type="email" 
-                class="notify-input" 
-                placeholder="E-posta adresiniz" 
-                required
-                id="emailInput"
-            >
-            <button type="submit" class="notify-btn">Haberdar Et</button>
-        </form>
-        <div class="success-message" id="successMessage">
-            ✓ Teşekkürler! Açılış tarihi yaklaştığında sizi bilgilendireceğiz.
-        </div>
-
-        <!-- Features -->
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">🎰</div>
-                <div class="feature-title">Tarafsız İncelemeler</div>
-                <div class="feature-desc">Casino ve slot siteleri hakkında oyuncu odaklı, dürüst değerlendirmeler</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🎁</div>
-                <div class="feature-title">Bonus Rehberleri</div>
-                <div class="feature-desc">Güncel bonuslar, çevrim şartları ve net kurallar tek sayfada</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🏆</div>
-                <div class="feature-title">Özel Turnuvalar</div>
-                <div class="feature-desc">KamberHub'a özel organize edilen turnuvalar ve ödüller</div>
-            </div>
-        </div>
-
-        <div class="social-links">
-            <a href="https://t.me/kamberhub" class="social-link" title="Telegram" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                </svg>
-            </a>
-        </div>
+    <!-- Countdown -->
+    <div class="countdown">
+      <div class="count-block">
+        <span class="count-num" id="cd-days">00</span>
+        <span class="count-label">Gün</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-block">
+        <span class="count-num" id="cd-hours">00</span>
+        <span class="count-label">Saat</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-block">
+        <span class="count-num" id="cd-mins">00</span>
+        <span class="count-label">Dakika</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-block">
+        <span class="count-num" id="cd-secs">00</span>
+        <span class="count-label">Saniye</span>
+      </div>
     </div>
 
-    <script>
-        let launchDate;
-        
-        if (!localStorage.getItem('khLaunchDate')) {
-            launchDate = new Date();
-            launchDate.setDate(launchDate.getDate() + 35);
-            localStorage.setItem('khLaunchDate', launchDate.getTime());
-        } else {
-            launchDate = new Date(parseInt(localStorage.getItem('khLaunchDate')));
-        }
-        
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = launchDate - now;
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-labels">
+        <span>Hazırlık Durumu</span>
+        <span id="progress-pct">87%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
 
-            if (distance < 0) {
-                document.querySelector('.countdown').innerHTML = '<div class="countdown-item"><span class="countdown-value">🎉</span><span class="countdown-label">AÇILDIK!</span></div>';
-                return;
-            }
+    <div class="divider"></div>
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    <!-- Email form -->
+    <div id="form-wrap">
+      <div class="form-row">
+        <input type="email" id="email-input" placeholder="E-posta adresin" autocomplete="email">
+        <button class="btn-notify" id="notify-btn" type="button">Beni Haberdar Et</button>
+      </div>
+      <p class="form-note">🔒 Spam yok. İstediğin zaman çıkabilirsin.</p>
+    </div>
 
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        }
+    <div class="success-msg" id="success-msg">
+      ✅ &nbsp;Harika! Açılıştan önce seni haberdar edeceğiz.
+    </div>
 
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+  </div>
 
-        document.getElementById('notifyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('emailInput').value;
-            const successMessage = document.getElementById('successMessage');
-            
-            console.log('E-posta kaydedildi:', email);
-            
-            successMessage.classList.add('show');
-            document.getElementById('emailInput').value = '';
-            
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 5000);
-        });
-    </script>
+  <!-- Feature chips -->
+  <div class="features">
+    <span class="feature"><span class="icon">🏆</span> 200+ İncelenmiş Site</span>
+    <span class="feature"><span class="icon">🎁</span> Güncel Bonus Takibi</span>
+    <span class="feature"><span class="icon">🔒</span> Güvenli &amp; Lisanslı</span>
+    <span class="feature"><span class="icon">📊</span> Gerçek Kullanıcı Puanları</span>
+  </div>
+
+  <footer>
+    &copy; 2026 KamberHub &nbsp;·&nbsp; Sorumlu oyun oynayın &nbsp;·&nbsp; 18+
+  </footer>
+
+</div>
+
+<script>
+/* ============================================================
+   Countdown — hedef tarihi buradan değiştir
+   ============================================================ */
+const TARGET = new Date('2026-06-20T20:00:00').getTime();
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function flip(el, val) {
+  const str = pad(val);
+  if (el.textContent !== str) {
+    el.classList.add('flip');
+    el.textContent = str;
+    setTimeout(() => el.classList.remove('flip'), 260);
+  }
+}
+
+const elD = document.getElementById('cd-days');
+const elH = document.getElementById('cd-hours');
+const elM = document.getElementById('cd-mins');
+const elS = document.getElementById('cd-secs');
+
+function tick() {
+  const now  = Date.now();
+  const diff = Math.max(0, TARGET - now);
+
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000)  / 60000);
+  const secs  = Math.floor((diff % 60000)    / 1000);
+
+  flip(elD, days);
+  flip(elH, hours);
+  flip(elM, mins);
+  flip(elS, secs);
+}
+
+tick();
+setInterval(tick, 1000);
+
+/* ============================================================
+   Progress bar animate-in
+   ============================================================ */
+const PCT = 87;
+setTimeout(() => {
+  document.getElementById('progress-fill').style.width = PCT + '%';
+}, 600);
+
+/* ============================================================
+   Email notify button
+   ============================================================ */
+document.getElementById('notify-btn').addEventListener('click', function () {
+  const email = document.getElementById('email-input').value.trim();
+  const re    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!re.test(email)) {
+    document.getElementById('email-input').focus();
+    document.getElementById('email-input').style.borderColor = '#f87171';
+    setTimeout(() => {
+      document.getElementById('email-input').style.borderColor = '';
+    }, 1400);
+    return;
+  }
+
+  /* Burada gerçek bir API çağrısı yapabilirsin */
+  document.getElementById('form-wrap').style.display  = 'none';
+  document.getElementById('success-msg').classList.add('show');
+});
+
+document.getElementById('email-input').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') document.getElementById('notify-btn').click();
+});
+
+/* ============================================================
+   Particle canvas
+   ============================================================ */
+(function () {
+  const canvas = document.getElementById('canvas');
+  const ctx    = canvas.getContext('2d');
+  let   W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COLORS = [
+    'rgba(22,119,255,',
+    'rgba(245,200,66,',
+    'rgba(88,167,255,',
+  ];
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function makeParticle() {
+    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    return {
+      x: rand(0, W),
+      y: rand(0, H),
+      r: rand(1, 2.8),
+      alpha: rand(0.06, 0.28),
+      vx: rand(-0.18, 0.18),
+      vy: rand(-0.22, -0.06),
+      color
+    };
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(makeParticle());
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.alpha + ')';
+      ctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+      p.alpha -= 0.0003;
+
+      if (p.y < -10 || p.alpha <= 0.01) {
+        Object.assign(p, makeParticle());
+        p.y = H + 5;
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
+
 </body>
 </html>
